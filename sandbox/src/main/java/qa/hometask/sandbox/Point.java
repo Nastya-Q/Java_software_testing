@@ -1,4 +1,4 @@
-package qa.hometask;
+package qa.hometask.sandbox;
 
 public class Point {
     public double x1, y1;
