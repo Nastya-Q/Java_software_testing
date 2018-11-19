@@ -13,7 +13,7 @@ public class TestDistance {
 
     @Test
     //check distance with 0.01 precision for doubles with long decimal part
-    public void testDistance1Dif() {
+    public void testDistanceDif() {
         Point p = new Point (4,6,10, 8);
         Assert.assertTrue((p.distance() - 6.32) < 0.01);
     }
