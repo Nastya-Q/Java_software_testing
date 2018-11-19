@@ -1,4 +1,4 @@
-package qa.hometask;
+package qa.hometask.sandbox;
 
 class MyFirstProgram {
 
