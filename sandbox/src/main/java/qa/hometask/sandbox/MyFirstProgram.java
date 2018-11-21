@@ -11,10 +11,11 @@ class MyFirstProgram {
                 "and point2 with coordinate (x;y) = ("  + p2.x + "; " + p2.y + ")" + "equals " + distance(p1, p2) );*/
 
         //Implement via object method
-        Point p = new Point (4, 6, 10, 8);
+        Point p1 = new Point (4, 6);
+        Point p2 = new Point (10,8);
         System.out.println("Distance via object method");
-        System.out.println("Distance between point 1 with coordinate (x1;y1) = (" + p.x1 + ";" + p.y1 + ")" +
-                "and point2 with coordinate (x2;y2) = ("  + p.x2 + ";" + p.y2 + ")" + "equals " + p.distance());
+        System.out.println("Distance between point1 with coordinates (" + p1.x + ";" + p1.y + ")" +
+                " and point2 with coordinates = ("  + p2.x + ";" + p2.y + ")" + " equals " + p1.distance(p2));
     }
 
 /*
