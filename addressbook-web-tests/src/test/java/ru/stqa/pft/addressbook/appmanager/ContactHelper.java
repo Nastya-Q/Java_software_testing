@@ -44,8 +44,8 @@ public class ContactHelper extends HelperBase{
         wd.switchTo().alert().accept();
     }
 
-    public void openEditContactPage() {
-        click(By.xpath("//img[@alt='Edit']"));
+    public void openEditContactPage(int index) {
+        click(By.cssSelector("a[href*='edit.php?id="+index));
     }
 
     public void submitContactModification() {

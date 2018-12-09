@@ -21,9 +21,10 @@ public class ContactDeletionTests extends TestBase {
         app.getContactHelper().selectContact(before.size()-1);
         app.getContactHelper().deleteSelectedContact();
         app.getNavigationHelper().goToHomePage();
-        Thread.sleep(5000);
+        /*if tests are executed in FireFox browser, then below sleep needed
+        as deleted element is still on the page for short time according to debug (however it's not seen visually, maybe cashed css?*/
+        //Thread.sleep(5000);
         List<ContactData> after = app.getContactHelper().getContactsList();
-        //System.out.println(after.get(0).toString());
         Assert.assertEquals(after.size(), before.size()-1);
 
         before.remove(before.size()-1);

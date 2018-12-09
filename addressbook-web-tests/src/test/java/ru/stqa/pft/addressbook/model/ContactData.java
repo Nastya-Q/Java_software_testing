@@ -21,14 +21,6 @@ public class ContactData {
         this.group = group;
     }
 
-    @Override
-    public String toString() {
-        return "ContactData{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                '}';
-    }
 
     public ContactData(int id, String firstName, String lastName, String address, String email, String mobile, String group) {
         this.id = id;
@@ -40,6 +32,14 @@ public class ContactData {
         this.group = group;
     }
 
+    @Override
+    public String toString() {
+        return "ContactData{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
+    }
     public String getFirstName() {
         return firstName;
     }
@@ -62,6 +62,10 @@ public class ContactData {
 
     public String getGroup() {
         return group;
+    }
+
+    public int getId() {
+        return id;
     }
 
     @Override
