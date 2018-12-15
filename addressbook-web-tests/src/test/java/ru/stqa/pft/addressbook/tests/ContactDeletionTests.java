@@ -14,7 +14,10 @@ public class ContactDeletionTests extends TestBase {
         app.goTo().homePage();
         if (app.contact().list().size() == 0) {
             app.goTo().gotoAddContactPage();
-            app.contact().createContact(new ContactData("Ana", "Test", "Moscow, Kremlin 456", "test@qatest.com", "+7951000000", "test1"), true);
+            ContactData contact = new ContactData()
+                    .withFirstName("Ana").withLastName("Test").withAddress("Moscow, Kremlin 456")
+                    .withEmail("test@qatest.com").withMobile("+7951000000").withGroup("test1");
+            app.contact().createContact(contact, true);
             app.goTo().homePage();
         }
     }

@@ -14,7 +14,9 @@ public class ContactCreationTests extends TestBase {
         app.goTo().homePage();
         List<ContactData> before = app.contact().list();
         app.goTo().gotoAddContactPage();
-        ContactData contact = new ContactData("Ana", "Test", "Moscow, Kremlin 456", "test@qatest.com", "+7951000000", "test1");
+        ContactData contact = new ContactData()
+                .withFirstName("Ana").withLastName("Test").withAddress("Moscow, Kremlin 456")
+                .withEmail("test@qatest.com").withMobile("+7951000000").withGroup("test1");
         app.contact().createContact(contact, true);
         app.contact().returnToContactPage();
         List<ContactData> after = app.contact().list();
@@ -27,5 +29,4 @@ public class ContactCreationTests extends TestBase {
         Assert.assertEquals(before, after);
 
   }
-
 }

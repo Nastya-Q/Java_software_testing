@@ -15,7 +15,10 @@ public class ContactModificationTests extends TestBase {
         app.goTo().homePage();
         if (app.contact().list().size() == 0) {
             app.goTo().gotoAddContactPage();
-            app.contact().createContact(new ContactData("Ana", "Test", "Moscow, Kremlin 456", "test@qatest.com", "+7951000000", "test1"), true);
+            ContactData contact = new ContactData()
+                    .withFirstName("Ana").withLastName("Test").withAddress("Moscow, Kremlin 456")
+                    .withEmail("test@qatest.com").withMobile("+7951000000").withGroup("test1");
+            app.contact().createContact(contact, true);
             app.goTo().homePage();
         }
     }
@@ -24,7 +27,10 @@ public class ContactModificationTests extends TestBase {
     public void testContactModification() {
         List<ContactData> before = app.contact().list();
         int index = before.size()-1;
-        ContactData contact = new ContactData(before.get(index).getId(), "Ana-changed", "Test-changed", "Moscow, Kremlin 456", "test@qatest.com", "+7951000000", null);
+        ContactData contact = new ContactData()
+                .withId(before.get(index).getId()).withFirstName("Ana-changed").withLastName("Test-changed")
+                .withAddress("Moscow, Kremlin 456").withEmail("test@qatest.com").withMobile("+7951000000")
+                .withEmail("test@qatest.com").withMobile("+7951000000");
         app.contact().modify(before, index, contact);
         List<ContactData> after = app.contact().list();
         Assert.assertEquals(after.size(), before.size());
