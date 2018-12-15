@@ -17,6 +17,13 @@ public class ContactHelper extends HelperBase{
         super(wd);
     }
 
+    public void returnToContactPage() {
+        if (isElementPresent(By.id("maintable"))) {
+            return;
+        }
+        click(By.linkText("home"));
+    }
+
     public void fillContactForm(ContactData contactData, boolean creation) {
         type(By.name("firstname"), contactData.getFirstName());
         type(By.name("lastname"), contactData.getLastName());
@@ -29,6 +36,19 @@ public class ContactHelper extends HelperBase{
         } else {
             Assert.assertFalse(isElementPresent (By.name("new_group")));
         }
+    }
+
+    public void delete(int index) {
+        selectContact(index);
+        deleteSelectedContact();
+        returnToContactPage();
+    }
+
+    public void modify(List<ContactData> before, int index, ContactData contact) {
+        openEditContactPage(before.get(index).getId());// Open Edit page for last contact on the page
+        fillContactForm(contact, false);
+        submitContactModification();
+        returnToContactPage();
     }
 
     public void submitContactCreation() {
@@ -61,7 +81,7 @@ public class ContactHelper extends HelperBase{
         return isElementPresent(By.name("selected[]"));
     }
 
-    public List<ContactData> getContactsList() {
+    public List<ContactData> list() {
         List<ContactData> contacts = new ArrayList<ContactData>();
         List<WebElement> rows = wd.findElements(By.name("entry"));
         for (WebElement row: rows) {
