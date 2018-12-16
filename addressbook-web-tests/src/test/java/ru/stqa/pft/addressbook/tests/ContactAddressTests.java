@@ -16,27 +16,29 @@ public class ContactAddressTests extends TestBase {
         if (app.contact().all().size() == 0) {
             app.goTo().gotoAddContactPage();
             ContactData contact = new ContactData()
-                    .withFirstName("Ana").withLastName("Test").withAddress("Russian Federation \n Moscow, Kremlin 4/56")
+                    .withFirstName("Ana").withLastName("Test").withAddress("  Russian Federation \n Moscow,    Kremlin 4/56")
                     .withEmail("test@qatest.com").withMobilePhone("+7(951)000000").withGroup("test1");
             app.contact().createContact(contact, true);
         }
     }
 
     @Test
-  public void testContactEmails() {
-        return;
+    public void testContactAddress() {
+        app.goTo().homePage();
+        ContactData contact = app.contact().all().iterator().next();
+        ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
+        assertThat(contact.getAddress(), equalTo(formatAddress(contactInfoFromEditForm.getAddress())));
     }
 
-//    @Test
-//    public void testContactEmails() {
-//        app.goTo().homePage();
-//        ContactData contact = app.contact().all().iterator().next();
-//        ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
-//        assertThat(contact.getAllEmails(), equalTo(mergeEmails(contactInfoFromEditForm)));
-//    }
-//
-//    private String mergeEmails(ContactData contact) {
-//        return Arrays.asList(contact.getEmail(), contact.getEmail2(), contact.getEmail3())
-//                .stream().collect(Collectors.joining("\n"));
-//    }
+    private String formatAddress(String address) {
+        return Arrays.asList(address.split("\n"))
+                .stream()
+                .map(ContactAddressTests::cleaned)
+                .collect(Collectors.joining("\n"));
+    }
+
+    //remove leading and trailing spaces and replace several spaces with one between word
+    public static String cleaned(String addressEntry) {
+        return addressEntry.trim().replaceAll("\\s+", " ");
+    }
 }

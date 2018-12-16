@@ -38,9 +38,9 @@ public class ContactEmailTests extends TestBase {
                 .collect(Collectors.joining("\n"));
     }
 
-    //remove leading and trailing spaces
+    //remove leading and trailing spaces and replace several spaces with one between words
     public static String cleaned(String email) {
-        return email.trim();
+        return email.trim().replaceAll("\\s+", " ");
     }
 }
 

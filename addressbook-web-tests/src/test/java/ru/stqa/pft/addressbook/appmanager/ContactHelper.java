@@ -31,8 +31,8 @@ public class ContactHelper extends HelperBase{
         type(By.name("email2"), contactData.getEmail2());
         type(By.name("email3"), contactData.getEmail3());
         type(By.name("mobile"), contactData.getMobilePhone());
-        type(By.name("home"), contactData.getMobilePhone());
-        type(By.name("work"), contactData.getMobilePhone());
+        type(By.name("home"), contactData.getHomePhone());
+        type(By.name("work"), contactData.getWorkPhone());
 
         if (creation) {
             new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
@@ -102,10 +102,12 @@ public class ContactHelper extends HelperBase{
         String email = wd.findElement(By.name("email")).getAttribute("value");
         String email2 = wd.findElement(By.name("email2")).getAttribute("value");
         String email3 = wd.findElement(By.name("email3")).getAttribute("value");
+        String address = wd.findElement(By.name("address")).getAttribute("value");
         wd.navigate().back();
         return new ContactData().withId(contact.getId()).withFirstName(firstName).withLastName(lastName)
                 .withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work)
-                .withEmail(email).withEmail2(email2).withEmail3(email3);
+                .withEmail(email).withEmail2(email2).withEmail3(email3)
+                .withAddress(address);
     }
 
     private Contacts contactCache = null;
@@ -122,9 +124,10 @@ public class ContactHelper extends HelperBase{
             String lastName = cells.get(1).getText();
             String allPhones = cells.get(5).getText();
             String allEmails = cells.get(4).getText();
+            String address = cells.get(3).getText();
             int id = Integer.parseInt(row.findElement(By.tagName("input")).getAttribute("value"));
             ContactData contact = new ContactData().withId(id).withFirstName(firstName).withLastName(lastName)
-                    .withAllPhones(allPhones).withAllEmails(allEmails);
+                    .withAllPhones(allPhones).withAllEmails(allEmails).withAddress(address);
             contactCache.add(contact);
         }
         return new Contacts(contactCache);
