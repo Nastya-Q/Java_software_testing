@@ -34,7 +34,8 @@ public class ContactAddressTests extends TestBase {
         return Arrays.asList(address.split("\n"))
                 .stream()
                 .map(ContactAddressTests::cleaned)
-                .collect(Collectors.joining("\n"));
+                .collect(Collectors.joining("\n"))
+                .replaceAll("^\\n+", ""); //this is to remove all empty strings in beginning of Address
     }
 
     //remove leading and trailing spaces and replace several spaces with one between word
