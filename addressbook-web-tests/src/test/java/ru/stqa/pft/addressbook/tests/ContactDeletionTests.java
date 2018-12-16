@@ -6,7 +6,6 @@ import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.testng.Assert.assertEquals;
 
 public class ContactDeletionTests extends TestBase {
 
@@ -29,8 +28,8 @@ public class ContactDeletionTests extends TestBase {
         app.contact().delete(deletedContact);
         //if tests are executed in FireFox browser, then below sleep needed as deleted element is still on the page for short time according to debug (however it's not seen visually, maybe cashed css
         //Thread.sleep(5000);
+        assertThat(app.contact().count(), equalTo(before.size() - 1));
         Contacts after = app.contact().all();
-        assertEquals(after.size(), before.size()-1);
         assertThat(after, equalTo(before.without(deletedContact)));
     }
 }
