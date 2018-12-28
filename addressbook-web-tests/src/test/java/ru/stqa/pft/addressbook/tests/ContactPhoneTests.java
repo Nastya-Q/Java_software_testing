@@ -12,8 +12,7 @@ public class ContactPhoneTests extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() {
-        app.goTo().homePage();
-        if (app.contact().all().size() == 0) {
+        if (app.db().contacts().size() == 0) {
             app.goTo().gotoAddContactPage();
             ContactData contact = new ContactData()
                     .withFirstName("Ana").withLastName("Test").withAddress("Moscow, Kremlin 456").withEmail("test@qatest.com")
