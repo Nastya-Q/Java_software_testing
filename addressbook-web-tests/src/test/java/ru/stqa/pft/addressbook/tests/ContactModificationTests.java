@@ -23,11 +23,11 @@ public class ContactModificationTests extends TestBase {
     @Test
     public void testContactModification() {
         Contacts before = app.db().contacts();
-        ContactData modifiedContact = before.iterator().next();
+        ContactData  modifiedContact = before.iterator().next();
         ContactData contact = new ContactData()
                 .withId(modifiedContact.getId()).withFirstName("Ana-changed").withLastName("Test-changed")
-                .withAddress("Moscow, Kremlin 456").withEmail("test@qatest.com").withMobilePhone("+7951000000")
-                .withEmail("test@qatest.com").withMobilePhone("+7951000000");
+                .withMobilePhone("+7951000000").withHomePhone("222-333-444").withWorkPhone("999")
+                .withEmail("test@qatest.com").withEmail2("test2@qatest.com").withEmail3("test3@qatest.com").withAddress("Moscow, Kremlin 456");
         app.goTo().homePage();
         app.contact().modify(contact);
         assertThat(app.contact().count(), equalTo(before.size()));
