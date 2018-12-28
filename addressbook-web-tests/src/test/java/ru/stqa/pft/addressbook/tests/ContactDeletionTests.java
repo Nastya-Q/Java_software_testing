@@ -22,14 +22,14 @@ public class ContactDeletionTests extends TestBase {
 
     @Test
     public void testContactDeletion() throws InterruptedException {
-        Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
         ContactData deletedContact = before.iterator().next();
         app.goTo().homePage();
         app.contact().delete(deletedContact);
         //if tests are executed in FireFox browser, then below sleep needed as deleted element is still on the page for short time according to debug (however it's not seen visually, maybe cashed css
         //Thread.sleep(5000);
         assertThat(app.contact().count(), equalTo(before.size() - 1));
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
         assertThat(after, equalTo(before.without(deletedContact)));
     }
 }
