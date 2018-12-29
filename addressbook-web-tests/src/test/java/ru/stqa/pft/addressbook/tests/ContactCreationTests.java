@@ -7,6 +7,8 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.Groups;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -19,6 +21,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 
 public class ContactCreationTests extends TestBase {
+
+    //BeforeTests create Groups
 
     @DataProvider
     public Iterator<Object[]> validContactsFromXml() throws IOException {
@@ -56,9 +60,11 @@ public class ContactCreationTests extends TestBase {
 
     @Test (dataProvider = "validContactsFromJson")
     public void testContactCreation(ContactData contact) {
+        Groups groups = app.db().groups();
         app.goTo().homePage();
         Contacts before = app.db().contacts();
         app.goTo().gotoAddContactPage();
+        contact.inGroup(groups.iterator().next());
         app.contact().createContact(contact, true);
         assertThat(app.contact().count(), equalTo(before.size() + 1));
         Contacts after = app.db().contacts();

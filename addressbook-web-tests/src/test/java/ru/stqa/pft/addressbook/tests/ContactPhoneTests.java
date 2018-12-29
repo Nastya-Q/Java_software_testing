@@ -16,7 +16,7 @@ public class ContactPhoneTests extends TestBase {
             app.goTo().gotoAddContactPage();
             ContactData contact = new ContactData()
                     .withFirstName("Ana").withLastName("Test").withAddress("Moscow, Kremlin 456").withEmail("test@qatest.com")
-                    .withMobilePhone("+7(951)000000").withHomePhone("+7 451 000000").withWorkPhone("+7-499-000000").withGroup("test1");
+                    .withMobilePhone("+7(951)000000").withHomePhone("+7 451 000000").withWorkPhone("+7-499-000000");
             app.contact().createContact(contact, true);
         }
     }

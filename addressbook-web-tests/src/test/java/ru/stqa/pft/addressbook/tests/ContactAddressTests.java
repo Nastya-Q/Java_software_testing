@@ -16,7 +16,7 @@ public class ContactAddressTests extends TestBase {
             app.goTo().gotoAddContactPage();
             ContactData contact = new ContactData()
                     .withFirstName("Ana").withLastName("Test").withAddress("  Russian Federation \n Moscow,    Kremlin 4/56")
-                    .withEmail("test@qatest.com").withMobilePhone("+7(951)000000").withGroup("test1");
+                    .withEmail("test@qatest.com").withMobilePhone("+7(951)000000");
             app.contact().createContact(contact, true);
         }
     }

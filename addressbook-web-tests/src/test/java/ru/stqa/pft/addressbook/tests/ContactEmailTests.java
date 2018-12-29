@@ -17,7 +17,7 @@ public class ContactEmailTests extends TestBase {
             ContactData contact = new ContactData()
                     .withFirstName("Ana").withLastName("Test").withAddress("Moscow, Kremlin 456")
                     .withEmail("test@qatest.com").withEmail2("test2@qatest.com").withEmail3("test2@qatest.com")
-                    .withMobilePhone("+7(951)000000").withGroup("test1");
+                    .withMobilePhone("+7(951)000000");
             app.contact().createContact(contact, true);
         }
     }
