@@ -134,4 +134,21 @@ public class ContactHelper extends HelperBase{
         return new Contacts(contactCache);
     }
 
+    public Contacts allWithIdAndNamesOnly() {
+        if (contactCache != null) {
+            return new Contacts(contactCache);
+        }
+        contactCache = new Contacts();
+        List<WebElement> rows = wd.findElements(By.name("entry"));
+        for (WebElement row: rows) {
+            List<WebElement> cells = row.findElements(By.tagName("td"));
+            String firstName = cells.get(2).getText();
+            String lastName = cells.get(1).getText();
+            int id = Integer.parseInt(row.findElement(By.tagName("input")).getAttribute("value"));
+            ContactData contact = new ContactData().withId(id).withFirstName(firstName).withLastName(lastName);
+            contactCache.add(contact);
+        }
+        return new Contacts(contactCache);
+    }
+
 }
