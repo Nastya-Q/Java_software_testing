@@ -75,7 +75,7 @@ public class ContactHelper extends HelperBase{
     }
 
     public void deleteContactFromGroup(ContactData contact, GroupData group) {
-        showGroupById(group.getId());
+        filterContactsByGroup(group.getId());
         selectContactById(contact.getId());
         removeContactFromGroup();
     }
@@ -84,7 +84,7 @@ public class ContactHelper extends HelperBase{
         click(By.name("remove"));
     }
 
-    private void showGroupById(int id) {
+    private void filterContactsByGroup(int id) {
         new Select(wd.findElement(By.name("group"))).selectByValue(Integer.toString(id));
     }
 
