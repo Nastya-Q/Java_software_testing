@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class ContactHelper extends HelperBase{
             if (contactData.getGroups().size() > 0) {
                 Assert.assertTrue(contactData.getGroups().size() == 1);
                 new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
-            }
+        }
         } else {
             Assert.assertFalse(isElementPresent (By.name("new_group")));
         }
@@ -67,6 +68,12 @@ public class ContactHelper extends HelperBase{
         returnToContactPage();
     }
 
+    public void addContactToGroup(ContactData contact, GroupData group) {
+        selectContactById(contact.getId());
+        selectGroupById(group.getId());
+        addSelectedContactToSelectedGroup();
+    }
+
     public void submitContactCreation() {
         click(By.name("submit"));
     }
@@ -75,9 +82,17 @@ public class ContactHelper extends HelperBase{
         wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
     }
 
+    private void selectGroupById(int id) {
+        new Select(wd.findElement(By.name("to_group"))).selectByValue(Integer.toString(id));
+    }
+
     public void deleteSelectedContact() {
         click(By.xpath("//input[@value='Delete']"));
         wd.switchTo().alert().accept();
+    }
+
+    private void addSelectedContactToSelectedGroup() {
+        click(By.name("add"));
     }
 
     public void initContactModificationById(int id) {
