@@ -32,4 +32,14 @@ public class ContactToGroupTests extends TestBase {
         app.goTo().homePage();
         app.contact().addContactToGroup(contact, group);
     }
+
+    @Test
+    public void testDeleteContactFromGroup() {
+        Contacts contacts = app.db().contacts();
+        Groups groups = app.db().groups();
+        ContactData contact = contacts.iterator().next();
+        GroupData group = groups.iterator().next();
+        app.goTo().homePage();
+        app.contact().deleteContactFromGroup(contact, group);
+    }
 }

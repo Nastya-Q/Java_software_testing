@@ -74,6 +74,20 @@ public class ContactHelper extends HelperBase{
         addSelectedContactToSelectedGroup();
     }
 
+    public void deleteContactFromGroup(ContactData contact, GroupData group) {
+        showGroupById(group.getId());
+        selectContactById(contact.getId());
+        removeContactFromGroup();
+    }
+
+    private void removeContactFromGroup() {
+        click(By.name("remove"));
+    }
+
+    private void showGroupById(int id) {
+        new Select(wd.findElement(By.name("group"))).selectByValue(Integer.toString(id));
+    }
+
     public void submitContactCreation() {
         click(By.name("submit"));
     }
@@ -94,6 +108,7 @@ public class ContactHelper extends HelperBase{
     private void addSelectedContactToSelectedGroup() {
         click(By.name("add"));
     }
+
 
     public void initContactModificationById(int id) {
         click(By.cssSelector(String.format("a[href*='edit.php?id=%s",id)));
