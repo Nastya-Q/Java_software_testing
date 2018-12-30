@@ -1,5 +1,6 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
@@ -25,21 +26,33 @@ public class ContactToGroupTests extends TestBase {
 
     @Test
     public void testAddContactToGroup() {
-        Contacts contacts = app.db().contacts();
+        Contacts contactsBefore = app.db().contacts();
         Groups groups = app.db().groups();
-        ContactData contact = contacts.iterator().next();
+        ContactData contact = contactsBefore.iterator().next();
         GroupData group = groups.iterator().next();
         app.goTo().homePage();
         app.contact().addContactToGroup(contact, group);
+        Contacts contactsAfter = app.db().contacts();
+        Boolean result = checkIfContactInGroup(contactsAfter, contact.getId(), group.getId());
+        Assert.assertTrue(result);
     }
 
     @Test
     public void testDeleteContactFromGroup() {
-        Contacts contacts = app.db().contacts();
+        Contacts contactsBefore = app.db().contacts();
         Groups groups = app.db().groups();
-        ContactData contact = contacts.iterator().next();
+        ContactData contact = contactsBefore.iterator().next();
         GroupData group = groups.iterator().next();
         app.goTo().homePage();
         app.contact().deleteContactFromGroup(contact, group);
+        Contacts contactsAfter = app.db().contacts();
+        Boolean result = checkIfContactInGroup(contactsAfter, contact.getId(), group.getId());
+        Assert.assertFalse(result);
+    }
+
+    private Boolean checkIfContactInGroup(Contacts contactsAfter, int contactId, int groupId) {
+        Groups groupsOfContact = contactsAfter.stream().filter((c) -> c.getId() == contactId)
+                .findAny().orElse(null).getGroups();
+        return groupsOfContact.stream().anyMatch((g) -> g.getId() == groupId);
     }
 }
