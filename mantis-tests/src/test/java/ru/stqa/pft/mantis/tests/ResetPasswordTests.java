@@ -4,7 +4,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class ChangePasswordTests extends TestBase {
+public class ResetPasswordTests extends TestBase {
 
     @BeforeMethod
     public void startMailServer() {
@@ -13,8 +13,8 @@ public class ChangePasswordTests extends TestBase {
 
     @Test
     public void testChangePassword() {
-        app.login().inputUserName("administrator");
-        app.login().inputUserPassword("root");
+        app.userAction().uiLogin("administrator", "root");
+        app.userAction().resetPasswordForUser(2);
     }
 
     @AfterMethod(alwaysRun = true)
