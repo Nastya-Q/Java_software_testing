@@ -5,7 +5,9 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.lanwen.verbalregex.VerbalExpression;
 import ru.stqa.pft.mantis.model.MailMessage;
+import ru.stqa.pft.mantis.model.UserData;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.io.IOException;
 import java.util.List;
 
@@ -20,15 +22,14 @@ public class ResetPasswordTests extends TestBase {
 
     @Test
     public void testChangePassword() throws IOException {
-        String email = "user10@localhost.localdomain";
-        String user = "use10";
+        UserData user = app.db().users().get(0);
         String password = "password";
         app.userAction().uiLogin("administrator", "root");
-        app.userAction().resetPasswordForUser(13);
+        app.userAction().resetPasswordForUser(user.getId());
         List<MailMessage> mailMessages = app.mail().waitForMail(1, 10000);
-        String confirmationLink = findConfirmationLink(mailMessages, email);
+        String confirmationLink = findConfirmationLink(mailMessages, user.getEmail());
         app.registration().finish(confirmationLink, password);
-        assertTrue(app.newSession().login(user, password));
+        assertTrue(app.newSession().login(user.getName(), password));
     }
 
     private String findConfirmationLink(List<MailMessage> mailMessages, String email) {
