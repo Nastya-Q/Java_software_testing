@@ -33,7 +33,7 @@ public class SoapTests extends TestBase {
     }
 
     @Test
-    //issue_Id = 3 (closed)
+    //hypothetical test to skip if issue N 3 is not fixed
     public void testSkipTestIfBugOpened() throws RemoteException, ServiceException, MalformedURLException {
         skipIfNotFixed(3);
         System.out.println("Issue closed, test is not skipped");
