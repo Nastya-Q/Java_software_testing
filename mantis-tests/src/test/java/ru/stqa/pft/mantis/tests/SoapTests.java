@@ -30,6 +30,12 @@ public class SoapTests extends TestBase {
                 .withProject(projects.iterator().next());
         Issue created = app.soap().addIssue(issue);
         assertEquals(issue.getSummary(), created.getSummary());
+    }
 
+    @Test
+    //issue_Id = 3 (closed)
+    public void testSkipTestIfBugOpened() throws RemoteException, ServiceException, MalformedURLException {
+        skipIfNotFixed(3);
+        System.out.println("Issue closed, test is not skipped");
     }
 }
