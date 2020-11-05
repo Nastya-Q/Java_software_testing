@@ -1,2 +1,2 @@
 # Java_software_testing
-training how to automate QA tasks on Java with different approaches
+Exercises and assignments from training how to automate QA tasks on Java using different approaches
